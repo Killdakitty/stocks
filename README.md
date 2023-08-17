@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+## 1 HOMEOWRK W8D4
+npm install react-router-dom
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+at index. js
+import {BrowserRouter as Router} from 'react-router-dom'
 
-## Available Scripts
+<Router>   <App />
+    </Router>
 
-In the project directory, you can run:
+## 2 create your pages 
+A common convention is to create two folders, components and pages. Any component that is used as a piece of UI goes in the components folder, any component meant to act as a "page" of the website goes in pages.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 3 App.js 
+import {Routes, Route} from 'react-router-dom'
+*** / = homepage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+import Home from './Pages/Home'
+import Stock from './Pages/Stock'
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ <Routes>
+        <Route path='/' element={<Home />}/> 
+        <Route path='/Stock' element={<Stock />}/> 
 
-### `npm run build`
+      </Routes>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 4 Nagivation 
+import { Link } from "react-router-dom"
+export default function Nav(){
+return(
+<div className="nav">
+    <Link to='/' >
+    <div>Home</div>
+    </Link>)}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+##
+app.js
+        <Route path='/stock/:symbol' element={<Stock />}/> 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## stock data-js
+import { Link } from "react-router-dom"
 
-### `npm run eject`
+export default function StockData(props){
+    const stocks = [
+        
+      ]
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+return (
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<div>
+{stocks.map(each=>{
+    const {name, symbol} =each;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    return(
+        <Link to={`/stocks/${symbol}`}>
+            <h2>{name}</h2>
+            </Link>
+    )
+})}
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+</div>
+)
+    }
+ 
+      
+## stocks.js
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+https://financialmodelingprep.com/api/v3/quote-short/AAPL?apikey=YOUR_API_KEY
+[ {
+    "symbol" : "AAPL",
+    "price" : 120.96000000,
+    "volume" : 332607163
+} ]
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+https://financialmodelingprep.com/api/v3/quote-short/AAPL?apikey=59527d605bf847cfae56804dfdc67352
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://financialmodelingprep.com/api/v3/quote/${symbol}?apikey=${process.env.REACT_APP_COINAPI_KEY}
